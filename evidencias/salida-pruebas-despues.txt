@@ -1,0 +1,13 @@
+✔ 99.999 COP cobra 8.000 COP de envío (0.8945ms)
+✔ 100.000 COP (límite exacto) tiene envío gratis (0.1469ms)
+✔ 100.001 COP tiene envío gratis (0.1014ms)
+✔ -1 COP produce RangeError (0.3448ms)
+✔ 100.000,5 COP (decimal) produce RangeError (0.1616ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 106.9835
