@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calculadora de envíos</title>
+  <style>
+    :root { --fondo: #f4f6f8; --tarjeta: #fff; --texto: #1d2733; --acento: #0b6bcb; --error: #b3261e; --ok: #1e7a3c; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 16px;
+           font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background: var(--fondo); color: var(--texto); }
+    main { width: 100%; max-width: 420px; background: var(--tarjeta); padding: 28px; border-radius: 12px;
+           box-shadow: 0 4px 18px rgba(0,0,0,.08); }
+    h1 { margin: 0 0 4px; font-size: 1.5rem; }
+    p.regla { margin: 0 0 20px; color: #55606e; font-size: .95rem; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; }
+    input { width: 100%; padding: 10px 12px; font-size: 1rem; border: 1px solid #c3cad3; border-radius: 8px; }
+    input:focus { outline: 2px solid var(--acento); border-color: var(--acento); }
+    button { margin-top: 14px; width: 100%; padding: 11px; font-size: 1rem; font-weight: 600; color: #fff;
+             background: var(--acento); border: 0; border-radius: 8px; cursor: pointer; }
+    button:hover { filter: brightness(1.08); }
+    #resultado { margin-top: 18px; min-height: 1.5em; font-size: 1.05rem; }
+    #resultado.ok { color: var(--ok); font-weight: 600; }
+    #resultado.error { color: var(--error); }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Calculadora de envíos</h1>
+    <p class="regla">Envío gratis desde 100.000 COP. Por debajo de ese monto el envío cuesta 8.000 COP.</p>
+    <form id="formulario" novalidate>
+      <label for="subtotal">Subtotal de la compra (COP)</label>
+      <input id="subtotal" name="subtotal" inputmode="numeric" autocomplete="off" placeholder="Ej: 99999">
+      <button type="submit">Calcular</button>
+    </form>
+    <p id="resultado" role="status" aria-live="polite"></p>
+  </main>
+  <script src="envios.js"></script>
+  <script>
+    const formulario = document.getElementById('formulario');
+    const campo = document.getElementById('subtotal');
+    const resultado = document.getElementById('resultado');
+    const formato = new Intl.NumberFormat('es-CO');
+
+    function mostrar(texto, clase) {
+      resultado.textContent = texto;
+      resultado.className = clase;
+    }
+
+    formulario.addEventListener('submit', (evento) => {
+      evento.preventDefault();
+      const texto = campo.value.trim();
+      if (texto === '') {
+        mostrar('Ingresa el subtotal de la compra.', 'error');
+        return;
+      }
+      if (!/^\d+$/.test(texto)) {
+        mostrar('Ingresa un monto entero y no negativo, sin puntos ni comas.', 'error');
+        return;
+      }
+      try {
+        const envio = calcularEnvio(Number(texto));
+        mostrar(`Envío: ${formato.format(envio)} COP`, 'ok');
+      } catch (error) {
+        mostrar(error.message, 'error');
+      }
+    });
+  </script>
+</body>
+</html>
