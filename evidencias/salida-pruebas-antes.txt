@@ -1,0 +1,35 @@
+✔ 99.999 COP cobra 8.000 COP de envío (2.1111ms)
+✖ 100.000 COP (límite exacto) tiene envío gratis (1.1978ms)
+✔ 100.001 COP tiene envío gratis (0.1225ms)
+✔ -1 COP produce RangeError (0.3604ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 144.1267
+
+✖ failing tests:
+
+test at envios.test.js:9:1
+✖ 100.000 COP (límite exacto) tiene envío gratis (1.1978ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  8000 !== 0
+  
+      at TestContext.<anonymous> (envios.test.js:10:10)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1306:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:897:18)
+      at Test.postRun (node:internal/test_runner/test:1447:19)
+      at Test.run (node:internal/test_runner/test:1372:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 8000,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
